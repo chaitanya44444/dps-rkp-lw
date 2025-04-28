@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:lw/pages/signup.dart';
+import 'package:lw/services/authentication_service.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class InterestInputChips extends StatefulWidget {
   final List<String> initialInterests;
@@ -105,40 +108,87 @@ class _InterestInputChipsState extends State<InterestInputChips> {
 class Interests extends StatefulWidget {
   const Interests({Key? key}) : super(key: key);
 
+
   @override
   _InterestsState createState() => _InterestsState();
 }
 
 class _InterestsState extends State<Interests> {
-  List<String> userInterests = [];
+  List<String> _userInterests = ["crypto-mining"];
+
+  String? _username;
+
+  final FirebaseAuth auth = FirebaseAuth.instance;
+  final AuthenticationService _authService = AuthenticationService(FirebaseAuth.instance);
+
+  void _submit(String? username, List<String> interests) async{
+    _authService.addUserToDB(auth.currentUser!.uid, username.toString(), auth.currentUser!.email.toString(), DateTime.now(), interests);
+
+    Navigator.pushNamed(context, "/landingscreen");
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final args = ModalRoute.of(context)?.settings.arguments;
+
+      if (args != null && args is String) {
+        setState(() {
+          _username = args;
+        });
+      } else {
+         print('No String data received or data is of wrong type.');
+         setState(() {
+           _username = 'user';
+         });
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text('Enter Your Interests'),
+        backgroundColor: Colors.blueAccent,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(
-              'Your Interests:',
-              style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
+            Column(
+              children: [
+                Text(
+                  'Your Interests:',
+                  style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
+                ),
+                SizedBox(height: 8.0),
+                InterestInputChips(
+                  initialInterests: ['crypto-mining'],
+                  onInterestsChanged: (interests) {
+                    setState(() {
+                      _userInterests = interests;
+                    });
+                    print('Current interests: $_userInterests');
+                  },
+                ),
+                SizedBox(height: 20.0),
+                Text('Saved Interests: ${_userInterests.join(', ')}'),
+              ],
             ),
-            SizedBox(height: 8.0),
-            InterestInputChips(
-              initialInterests: ['crypto-mining'],
-              onInterestsChanged: (interests) {
-                setState(() {
-                  userInterests = interests;
-                });
-                print('Current interests: $userInterests');
-              },
-            ),
-            SizedBox(height: 20.0),
-            Text('Saved Interests: ${userInterests.join(', ')}'),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                ElevatedButton(
+                  onPressed: () => _submit(_username, _userInterests),
+                  child: Text('Submit'),
+                ),
+                SizedBox(height: 100,),
+              ],
+            )
           ],
         ),
       ),

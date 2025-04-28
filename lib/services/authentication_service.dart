@@ -5,7 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 class AuthenticationService {
   final FirebaseAuth _firebaseAuth;
   UserModel userModel =
-      UserModel(email: "", uid: "", username: "", timestamp: DateTime.now());
+      UserModel(email: "", uid: "", username: "", timestamp: DateTime.now(), interests: []);
   final userRef = FirebaseFirestore.instance.collection("users");
 
   AuthenticationService(this._firebaseAuth);
@@ -47,8 +47,8 @@ class AuthenticationService {
     }
   }
 
-  Future<void> addUserToDB(String uid, String username, String email, DateTime timestamp) async {
-    userModel = UserModel(uid: uid, username: username, email: email, timestamp: timestamp);
+  Future<void> addUserToDB(String uid, String username, String email, DateTime timestamp, List<String> interests) async {
+    userModel = UserModel(uid: uid, username: username, email: email, timestamp: timestamp, interests: interests);
 
     await userRef.doc(uid).set(userModel.toMap(userModel));
   }

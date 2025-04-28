@@ -85,20 +85,20 @@ class _LogInState extends State<LogIn> {
     });
   }
 
-  _createUserInFirestore() async {
-    Navigator.pushNamed(context, "/landingScreen");
-    _authService.addUserToDB(auth.currentUser!.uid, _username, auth.currentUser!.email.toString(), timestamp);
-  }
+  // _createUserInFirestore() async {
+  //   Navigator.pushNamed(context, "/landingScreen");
+  //   _authService.addUserToDB(auth.currentUser!.uid, _username, auth.currentUser!.email.toString(), timestamp);
+  // }
 
-  _signInWithGoogle() {
-    String logMessage = _authService.signInWithGoogle();
-    if (logMessage == "12") {
-      _createUserInFirestore();
-      _showSuccessSnack("Signed In");
-    } else {
-      _showErrorSnack(logMessage);
-    }
-  }
+  // _signInWithGoogle() {
+  //   String logMessage = _authService.signInWithGoogle();
+  //   if (logMessage == "12") {
+  //     _createUserInFirestore();
+  //     _showSuccessSnack("Signed In");
+  //   } else {
+  //     _showErrorSnack(logMessage);
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -170,12 +170,15 @@ class _LogInState extends State<LogIn> {
                       Padding(
                         padding: EdgeInsets.only(top: 20),
                         child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
                           children: [
                             _isSubmitting == true
-                                ? CircularProgressIndicator(
-                                    valueColor: AlwaysStoppedAnimation(
-                                        Theme.of(context).primaryColor),
-                                  )
+                                ? Center(
+                                  child: CircularProgressIndicator(
+                                      valueColor: AlwaysStoppedAnimation(
+                                          Theme.of(context).primaryColor),
+                                    ),
+                                )
                                 : ElevatedButton(
                                     onPressed: _submit,
                                     style: ButtonStyle(

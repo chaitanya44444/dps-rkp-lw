@@ -1,5 +1,3 @@
-import 'landingscreen.dart';
-import 'login.dart';
 import 'package:lw/services/authentication_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -12,14 +10,12 @@ class SignUp extends StatefulWidget {
 }
 
 class _SignUpState extends State<SignUp> {
-  final FirebaseAuth _auth = FirebaseAuth.instance;
-  
   User? _user;
 
   bool _obscureText = true;
   bool _isSubmitting = false;
   bool gContinue = false;
-  final TextEditingController _textFieldController = TextEditingController();
+  // final TextEditingController _textFieldController = TextEditingController();
 
   String _username = "";
   String _email = "";
@@ -28,8 +24,7 @@ class _SignUpState extends State<SignUp> {
   final _formKey = GlobalKey<FormState>();
 
   final FirebaseAuth auth = FirebaseAuth.instance;
-  final AuthenticationService _authService =
-      AuthenticationService(FirebaseAuth.instance);
+  final AuthenticationService _authService = AuthenticationService(FirebaseAuth.instance);
   final DateTime timestampNow = DateTime.now();
 
   _submit() {
@@ -57,7 +52,9 @@ class _SignUpState extends State<SignUp> {
     print(logMessage);
 
     if (logMessage == "Signed Up") {
-      _createUserInFirestore();
+      if (mounted) {
+        Navigator.pushNamed(context, "/interests", arguments: _username);
+      }
     } else {
       setState(() {
         _isSubmitting = false;
@@ -88,25 +85,20 @@ class _SignUpState extends State<SignUp> {
     ScaffoldMessenger.of(context).showSnackBar(snackbar);
   }
 
-  _createUserInFirestore() async {
-    _authService.addUserToDB(auth.currentUser!.uid, _username, auth.currentUser!.email.toString(), timestampNow);
-    Navigator.pushNamed(context, "/interests");
-  }
-
-  _signInWithGoogle() {
-    String logMessage = _authService.signInWithGoogle();
-    if (logMessage == "12") {
-      _createUserInFirestore();
-      _showSuccessSnack("Registed");
-    } else {
-      _showErrorSnack(logMessage);
-    }
-  }
+  // _signInWithGoogle() {
+  //   String logMessage = _authService.signInWithGoogle();
+  //   if (logMessage == "12") {
+  //     _createUserInFirestore();
+  //     _showSuccessSnack("Registed");
+  //   } else {
+  //     _showErrorSnack(logMessage);
+  //   }
+  // }
 
   @override
   void initState() {
     super.initState();
-    _auth.authStateChanges().listen((event) {
+    auth.authStateChanges().listen((event) {
       setState(() {
         _user = event;
       });
@@ -204,12 +196,15 @@ class _SignUpState extends State<SignUp> {
                       Padding(
                         padding: EdgeInsets.only(top: 20),
                         child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
                           children: [
                             _isSubmitting == true
-                                ? CircularProgressIndicator(
-                                    valueColor: AlwaysStoppedAnimation(
-                                        Theme.of(context).primaryColor),
-                                  )
+                                ? Center(
+                                  child: CircularProgressIndicator(
+                                      valueColor: AlwaysStoppedAnimation(
+                                          Theme.of(context).primaryColor),
+                                    ),
+                                )
                                 : SizedBox(
                                   width: double.maxFinite,
                                   child: ElevatedButton(
