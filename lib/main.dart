@@ -6,8 +6,10 @@ import 'package:lw/pages/Interests.dart';
 import 'package:lw/pages/landingscreen.dart';
 import 'package:lw/pages/login.dart';
 import 'package:lw/pages/signup.dart';
+import 'package:lw/pages/contentgen.dart';
 import 'pages/google_trends_rss_page.dart';
 import 'services/trends_provider.dart';
+
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -33,13 +35,14 @@ class MainApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      initialRoute: '/sign-up',
+      initialRoute: '/content-gen',
       routes: {
         '/log-in': (context) => LogIn(),
         '/google-trends-display': (context) => GoogleTrendsRssPage(),
         '/sign-up': (context) => SignUp(),
         '/landingscreen': (context) => LandingScreen(),
         '/interests': (context) => Interests(),
+        '/content-gen': (context) => ContentGen(),
       },
       debugShowCheckedModeBanner: false,
     );
