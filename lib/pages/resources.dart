@@ -1,17 +1,46 @@
 import 'package:flutter/material.dart';
 
-class Resourcescreen extends StatelessWidget {
+class Resourcescreen extends StatefulWidget {
   const Resourcescreen({super.key});
+
+  @override
+  State<Resourcescreen> createState() => _ResourcescreenState();
+}
+
+class _ResourcescreenState extends State<Resourcescreen> {
+  int _selectedIndex = 3;
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+
+
+    switch (index) {
+      case 0:
+        Navigator.pushNamed(context, '/landingscreen');
+        break;
+      case 1:
+        Navigator.pushNamed(context, '/google-trends-display');
+        break;
+      case 2:
+        Navigator.pushNamed(context, '/content-gen');
+        break;
+      case 3:
+        Navigator.pushNamed(context, '/resources');
+        break;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: AppBar(
-        toolbarHeight: 50,// idk how else to change height else it was too big
-        backgroundColor: Colors.deepPurpleAccent, // this might hurt eye but looks good to me
+        toolbarHeight: 50,
+        backgroundColor: Colors.deepPurpleAccent,
         centerTitle: true,
-        title:  Text(
+        title: const Text(
           'Influencer App',
           style: TextStyle(
             fontWeight: FontWeight.bold,
@@ -23,62 +52,55 @@ class Resourcescreen extends StatelessWidget {
       body: Align(
         alignment: Alignment.topLeft,
         child: Padding(
-          padding: EdgeInsets.all(20),
+          padding: const EdgeInsets.all(20),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start, // i dont like how we cant just give children to allign and have to use this
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
+              const Text(
                 'Here are some hand-picked platforms to help you',
                 style: TextStyle(
                   fontSize: 25,
                   color: Colors.greenAccent,
                   height: 1.3,
-                    fontWeight: FontWeight.bold,
+                  fontWeight: FontWeight.bold,
                 ),
               ),
-              SizedBox(height: 1), //using as buffer cuz spacer is frankly in my opinion bad for not allowing decimal values
-              Text(
-                '\nOpen Access Art (The Met): https://www.metmuseum.org/art/collection\nPexels: https://www.pexels.com\nUnsplash: https://www.unsplash.com\nPixabay: https://www.pixabay.com\nYouTube Audio Library: https://studio.youtube.com\nFree Music Archive: https://freemusicarchive.org\nBensound: https://www.bensound.com\nCoverr: https://www.coverr.co\nMixkit: https://mixkit.co\nVidevo: https://www.videvo.net',
+              const SizedBox(height: 1),
+              const Text( '\nOpen Access Art (The Met): https://www.metmuseum.org/art/collection\nPexels: https://www.pexels.com\nUnsplash: https://www.unsplash.com\nPixabay: https://www.pixabay.com\nYouTube Audio Library: https://studio.youtube.com\nFree Music Archive: https://freemusicarchive.org\nBensound: https://www.bensound.com\nCoverr: https://www.coverr.co\nMixkit: https://mixkit.co\nVidevo: https://www.videvo.net',
                 style: TextStyle(
                   fontSize: 22,
                   color: Colors.white,
                 ),
               ),
-
-              Spacer(),
-              Container(
-                height: 50,
-                color: Colors.white,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    GestureDetector(
-                      onTap: () => Navigator.pushNamed(context, '/landingscreen'),
-                      child: Icon(Icons.home, color: Colors.indigo),
-                    ),
-
-                    GestureDetector(
-                      onTap: () => Navigator.pushNamed(context, '/google-trends-display'),
-                      child: Text('Trends', style: TextStyle(fontSize: 16)),
-                    ),
-
-                    GestureDetector(
-                      onTap: () => Navigator.pushNamed(context, '/content-gen'),
-                      child: Text('Content-Gen', style: TextStyle(fontSize: 16)),
-                    ),
-
-                    GestureDetector(
-                      onTap: () => Navigator.pushNamed(context, '/resources'),
-                      child: Text('Resources', style: TextStyle(fontSize: 16)),
-                    ),
-                  ],
-                ),
-              )
-
-
+              const Spacer(),
             ],
           ),
         ),
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        items: const [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: "home",
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.trending_up),
+            label: "trends",
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.create),
+            label: "content",
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.book),
+            label: "Resources",
+          ),
+        ],
+        elevation: 10,
+        currentIndex: _selectedIndex,
+        unselectedItemColor: Colors.grey,
+        selectedItemColor: Colors.amber[800],
+        onTap: _onItemTapped,
       ),
     );
   }

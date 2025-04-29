@@ -89,6 +89,27 @@ class GoogleTrendsRssPage extends StatefulWidget {
 }
 
 class _GoogleTrendsRssPageState extends State<GoogleTrendsRssPage> {
+  int _selectedIndex = 1;
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+
+    switch (index) {
+      case 0:
+        Navigator.pushNamed(context, '/landingscreen');
+        break;
+      case 1:
+        Navigator.pushNamed(context, '/google-trends-display');
+        break;
+      case 2:
+        Navigator.pushNamed(context, '/content-gen');
+        break;
+      case 3:
+        Navigator.pushNamed(context, '/resources');
+        break;
+    }
+  }
   @override
   void initState() {
     super.initState();
@@ -199,34 +220,32 @@ class _GoogleTrendsRssPageState extends State<GoogleTrendsRssPage> {
         tooltip: 'Refresh Trends',
         child: Icon(Icons.refresh),
       ),
-      bottomNavigationBar: Container(
-        height: 50,
-        color: Colors.white,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            GestureDetector(
-              onTap: () => Navigator.pushNamed(context, '/landingscreen'),
-              child: Icon(Icons.home, color: Colors.indigo),
-            ),
-
-            GestureDetector(
-              onTap: () => Navigator.pushNamed(context, '/google-trends-display'),
-              child: Text('Trends', style: TextStyle(fontSize: 16)),
-            ),
-
-            GestureDetector(
-              onTap: () => Navigator.pushNamed(context, '/content-gen'),
-              child: Text('Content-Gen', style: TextStyle(fontSize: 16)),
-            ),
-
-            GestureDetector(
-              onTap: () => Navigator.pushNamed(context, '/resources'),
-              child: Text('Resources', style: TextStyle(fontSize: 16)),
-            ),
-          ],
-        ),
+      bottomNavigationBar: BottomNavigationBar(
+        items: const [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: "Home",
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.trending_up),
+            label: "Trends",
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.text_fields),
+            label: "Content",
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.book),
+            label: "Resources",
+          ),
+        ],
+        currentIndex: _selectedIndex, 
+        unselectedItemColor: Colors.grey,
+        selectedItemColor: Colors.amber[800],
+        elevation: 10,
+        onTap: _onItemTapped,
       ),
+
     );
   }
 }
