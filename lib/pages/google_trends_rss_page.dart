@@ -180,11 +180,17 @@ class _GoogleTrendsRssPageState extends State<GoogleTrendsRssPage> {
                                         },
                                         tooltip: 'Open Link',
                                       ),
+
                                   ],
                                 ),
+
                               ],
+
+
+
                             ),
                           ),
+
                         );
                       },
                     ),
@@ -193,6 +199,35 @@ class _GoogleTrendsRssPageState extends State<GoogleTrendsRssPage> {
         tooltip: 'Refresh Trends',
         child: Icon(Icons.refresh),
       ),
+      bottomNavigationBar: Container(
+        height: 50,
+        color: Colors.white,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            GestureDetector(
+              onTap: () => Navigator.pushNamed(context, '/landingscreen'),
+              child: Icon(Icons.home, color: Colors.indigo),
+            ),
+
+            GestureDetector(
+              onTap: () => Navigator.pushNamed(context, '/google-trends-display'),
+              child: Text('Trends', style: TextStyle(fontSize: 16)),
+            ),
+
+            GestureDetector(
+              onTap: () => Navigator.pushNamed(context, '/content-gen'),
+              child: Text('Content-Gen', style: TextStyle(fontSize: 16)),
+            ),
+
+            GestureDetector(
+              onTap: () => Navigator.pushNamed(context, '/resources'),
+              child: Text('Resources', style: TextStyle(fontSize: 16)),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
+

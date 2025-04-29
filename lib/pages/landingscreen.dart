@@ -83,7 +83,10 @@ class LandingScreen extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    Icon(Icons.home, color: Colors.indigo),
+                    GestureDetector(
+                      onTap: () => Navigator.pushNamed(context, '/landingscreen'),
+                      child: Icon(Icons.home, color: Colors.indigo),
+                    ),
 
                     GestureDetector(
                       onTap: () => Navigator.pushNamed(context, '/google-trends-display'),
