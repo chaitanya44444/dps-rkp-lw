@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class LandingScreen extends StatelessWidget {
-  const LandingScreen({super.key});
+class Resourcescreen extends StatelessWidget {
+  const Resourcescreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -28,54 +28,23 @@ class LandingScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start, // i dont like how we cant just give children to allign and have to use this
             children: [
               Text(
-                'Unlock your future',
+                'Here are some hand-picked platforms to help you',
                 style: TextStyle(
-                  fontSize: 36,
-                  color: Colors.white,
+                  fontSize: 25,
+                  color: Colors.greenAccent,
                   height: 1.3,
+                    fontWeight: FontWeight.bold,
                 ),
               ),
               SizedBox(height: 1), //using as buffer cuz spacer is frankly in my opinion bad for not allowing decimal values
               Text(
-                '\nExplore our wide collection of powerful tools meant to aid u in your journey in content creation,social media,etc\n',
+                '\nOpen Access Art (The Met): https://www.metmuseum.org/art/collection\nPexels: https://www.pexels.com\nUnsplash: https://www.unsplash.com\nPixabay: https://www.pixabay.com\nYouTube Audio Library: https://studio.youtube.com\nFree Music Archive: https://freemusicarchive.org\nBensound: https://www.bensound.com\nCoverr: https://www.coverr.co\nMixkit: https://mixkit.co\nVidevo: https://www.videvo.net',
                 style: TextStyle(
                   fontSize: 22,
-                  color: Colors.grey,
+                  color: Colors.white,
                 ),
               ),
-              SizedBox(height: 1),
-              SizedBox(height:60),
-              Text(
-                'Discover New Trends',
-                style: TextStyle(
-                  fontSize: 34,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.purpleAccent,
-                ),
-              ),
-              Text(
-                '\nUsing our apps unique trend section you can easily infer about the latest trends in ur local area\n',
-                style: TextStyle(
-                  fontSize: 22,
-                  color: Colors.grey,
 
-                ),
-              ),
-              Text(
-                'Generate Content Ideas',
-                style: TextStyle(
-                  fontSize: 34,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.blueAccent,
-                ),
-              ),
-              Text(
-                '\nUse our AI powered tool to help generate your self content ideas,hastags,captions,post ideas,etc\n',
-                style: TextStyle(
-                  fontSize: 22,
-                  color: Colors.grey,
-                ),
-              ),
               Spacer(),
               Container(
                 height: 50,

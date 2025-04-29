@@ -9,6 +9,9 @@ import 'package:lw/pages/signup.dart';
 import 'package:lw/pages/contentgen.dart';
 import 'pages/google_trends_rss_page.dart';
 import 'services/trends_provider.dart';
+import 'package:lw/pages/resources.dart';
+
+
 
 
 void main() async {
@@ -35,7 +38,7 @@ class MainApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      initialRoute: '/content-gen',
+      initialRoute: '/sign-up',
       routes: {
         '/log-in': (context) => LogIn(),
         '/google-trends-display': (context) => GoogleTrendsRssPage(),
@@ -43,6 +46,7 @@ class MainApp extends StatelessWidget {
         '/landingscreen': (context) => LandingScreen(),
         '/interests': (context) => Interests(),
         '/content-gen': (context) => ContentGen(),
+        '/resources': (context) => Resourcescreen(),
       },
       debugShowCheckedModeBanner: false,
     );
