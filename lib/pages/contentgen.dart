@@ -68,14 +68,34 @@ class _ContentGenState extends State<ContentGen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Content Generator ')),
+      backgroundColor: Color(0xFF1C1C1C),
 
-      body: Padding(
+      appBar: AppBar(
+        toolbarHeight: 50,// idk how else to change height else it was too big
+        backgroundColor: Colors.deepPurple, // this might hurt eye but looks good to me
+        centerTitle: true,
+        title:  Text(
+          'Content Generator',
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            color: Colors.purpleAccent,
+            fontSize: 22,
+          ),
+        ),
+      ),
+
+      body:
+      Padding(
+
         padding: const EdgeInsets.all(16),//24 might look better ngl
         child: Column(
+
           children: [
+
             TextField(
+
               controller: _promptController,
+
               decoration: InputDecoration(
                 hintText: 'Enter prompt for the ai bot of influencers dream',
                 border: OutlineInputBorder(), //looks weird otherwise
@@ -118,31 +138,43 @@ class _ContentGenState extends State<ContentGen> {
         ),
 
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: "Home",
+      bottomNavigationBar: Container(
+        decoration: BoxDecoration(
+          border: Border(
+            top: BorderSide(//dont want to make it look other way
+              color: Colors.grey,
+              width: 1,
+            ),
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.trending_up),
-            label: "Trends",
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.text_fields),
-            label: "Content",
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.book),
-            label: "Resources",
-          ),
-        ],
-        currentIndex: _selectedIndex, 
-        unselectedItemColor: Colors.grey,
-        selectedItemColor: Colors.amber[800],
-        elevation: 10,
-        onTap: _onItemTapped,
+        ),
+        child: BottomNavigationBar(
+          type: BottomNavigationBarType.fixed,
+          backgroundColor: Colors.black,
+          selectedItemColor: Colors.amber[800],
+          unselectedItemColor: Colors.white,
+          currentIndex: _selectedIndex,
+          onTap: _onItemTapped,
+          items: const [
+            BottomNavigationBarItem(
+              icon: Icon(Icons.home),
+              label: "Home",
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.trending_up),
+              label: "Trends",
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.text_fields),
+              label: "Content",
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.book),
+              label: "Resources",
+            ),
+          ],
+        ),
       ),
+
 
     );
   }

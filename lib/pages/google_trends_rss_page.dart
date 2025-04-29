@@ -123,9 +123,19 @@ class _GoogleTrendsRssPageState extends State<GoogleTrendsRssPage> {
     final trendsProvider = context.watch<TrendsProvider>();
 
     return Scaffold(
+      backgroundColor:Colors.black,
       appBar: AppBar(
-        title: const Text('Google Trends (RSS Feed)'),
-        backgroundColor: Colors.blueAccent,
+        toolbarHeight: 50,// idk how else to change height else it was too big
+        backgroundColor: Colors.deepPurple, // this might hurt eye but looks good to me
+        centerTitle: true,
+        title:  Text(
+          'Trends',
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            color: Colors.purpleAccent,
+            fontSize: 22,
+          ),
+        ),
       ),
       body: trendsProvider.isLoading
           ? Center(child: CircularProgressIndicator())
@@ -141,7 +151,8 @@ class _GoogleTrendsRssPageState extends State<GoogleTrendsRssPage> {
                         final isLiked = trendsProvider.isTrendLiked(trend);
 
                         return Card(
-                          margin: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 4.0),
+                            color: Color(0xFF1C1C1C),
+                            margin: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 4.0),
                           elevation: 3.0,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(12.0),
@@ -156,15 +167,16 @@ class _GoogleTrendsRssPageState extends State<GoogleTrendsRssPage> {
                                     DateFormat('MMM dd, HH:mm').format(trend.pubDate!),
                                     style: TextStyle(
                                       fontSize: 12.0,
-                                      color: Colors.grey[600],
+                                      color: Colors.white,
                                     ),
                                   ),
                                 SizedBox(height: 4.0),
                                 Text(
                                   trend.title,
                                   style: TextStyle(
-                                    fontSize: 18.0,
+                                    fontSize: 25.0,
                                     fontWeight: FontWeight.bold,
+                                      color: Colors.white,
                                   ),
                                 ),
                                 SizedBox(height: 8.0),
@@ -172,7 +184,7 @@ class _GoogleTrendsRssPageState extends State<GoogleTrendsRssPage> {
                                   Text(
                                     'Approx Traffic: ${trend.approxTraffic} searches',
                                     style: TextStyle(
-                                      fontSize: 14.0,
+                                      fontSize: 20.0,
                                       color: Colors.green[700],
                                     ),
                                   ),
@@ -220,30 +232,41 @@ class _GoogleTrendsRssPageState extends State<GoogleTrendsRssPage> {
         tooltip: 'Refresh Trends',
         child: Icon(Icons.refresh),
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: "Home",
+      bottomNavigationBar: Container(
+        decoration: BoxDecoration(
+          border: Border(
+            top: BorderSide(//dont want to make it look other way
+              color: Colors.grey,
+              width: 3,
+            ),
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.trending_up),
-            label: "Trends",
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.text_fields),
-            label: "Content",
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.book),
-            label: "Resources",
-          ),
-        ],
-        currentIndex: _selectedIndex, 
-        unselectedItemColor: Colors.grey,
-        selectedItemColor: Colors.amber[800],
-        elevation: 10,
-        onTap: _onItemTapped,
+        ),
+        child: BottomNavigationBar(
+          type: BottomNavigationBarType.fixed,
+          backgroundColor: Colors.black,
+          selectedItemColor: Colors.amber[800],
+          unselectedItemColor: Colors.white,
+          currentIndex: _selectedIndex,
+          onTap: _onItemTapped,
+          items: const [
+            BottomNavigationBarItem(
+              icon: Icon(Icons.home),
+              label: "Home",
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.trending_up),
+              label: "Trends",
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.text_fields),
+              label: "Content",
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.book),
+              label: "Resources",
+            ),
+          ],
+        ),
       ),
 
     );

@@ -36,14 +36,14 @@ class _LandingScreenState extends State<LandingScreen> {
       backgroundColor: Colors.black,
       appBar: AppBar(
         toolbarHeight: 50,// idk how else to change height else it was too big
-        backgroundColor: Colors.deepPurpleAccent, // this might hurt eye but looks good to me
+        backgroundColor: Colors.deepPurple, // this might hurt eye but looks good to me
         centerTitle: true,
         title:  Text(
           'Influencer App',
           style: TextStyle(
             fontWeight: FontWeight.bold,
             color: Colors.purpleAccent,
-            fontSize: 30,
+            fontSize: 22,
           ),
         ),
       ),
@@ -58,6 +58,8 @@ class _LandingScreenState extends State<LandingScreen> {
                 'Unlock your future',
                 style: TextStyle(
                   fontSize: 36,
+                  fontWeight: FontWeight.bold,
+
                   color: Colors.white,
                   height: 1.3,
                 ),
@@ -70,14 +72,12 @@ class _LandingScreenState extends State<LandingScreen> {
                   color: Colors.grey,
                 ),
               ),
-              SizedBox(height: 1),
-              SizedBox(height:20),
               Text(
                 'Discover New Trends',
                 style: TextStyle(
                   fontSize: 34,
                   fontWeight: FontWeight.bold,
-                  color: Colors.purpleAccent,
+                  color: Colors.pinkAccent,
                 ),
               ),
               Text(
@@ -109,31 +109,43 @@ class _LandingScreenState extends State<LandingScreen> {
           ),
         ),
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: "Home",
+      bottomNavigationBar: Container(
+        decoration: BoxDecoration(
+          border: Border(
+            top: BorderSide(//dont want to make it look other way
+              color: Colors.grey,
+              width: 1,
+            ),
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.trending_up),
-            label: "Trends",
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.text_fields),
-            label: "Content",
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.book),
-            label: "Resources",
-          ),
-        ],
-        currentIndex: _selectedIndex, 
-        unselectedItemColor: Colors.grey,
-        selectedItemColor: Colors.amber[800],
-        elevation: 10,
-        onTap: _onItemTapped,
+        ),
+        child: BottomNavigationBar(
+          type: BottomNavigationBarType.fixed,
+          backgroundColor: Colors.black,
+          selectedItemColor: Colors.amber[800],
+          unselectedItemColor: Colors.white,
+          currentIndex: _selectedIndex,
+          onTap: _onItemTapped,
+          items: const [
+            BottomNavigationBarItem(
+              icon: Icon(Icons.home),
+              label: "Home",
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.trending_up),
+              label: "Trends",
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.text_fields),
+              label: "Content",
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.book),
+              label: "Resources",
+            ),
+          ],
+        ),
       ),
+
 
     );
   }
